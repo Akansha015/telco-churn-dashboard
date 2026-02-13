@@ -413,6 +413,17 @@ elif page == "About":
     st.subheader("📬 Send Feedback / Suggestions")
     st.caption("Love it? Hate it? Got ideas for new features? Let me know — every comment helps improve this portfolio project!")
 
+        # ── Debug: Check if secrets JSON is clean ──
+    st.write("--- Secrets Debug (remove after testing) ---")
+    try:
+        test_json = st.secrets["credentials_json"]
+        import json
+        parsed = json.loads(test_json)
+        st.success("credentials_json secret is valid JSON ✓")
+        st.write("Project ID from secret:", parsed.get("project_id", "Not found"))
+    except Exception as e:
+        st.error(f"JSON parse failed in secrets: {str(e)}")
+
     with st.form(key="feedback_form"):
         feedback_text = st.text_area(
             "Your feedback / ideas / questions",
