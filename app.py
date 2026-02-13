@@ -223,22 +223,56 @@ if page == "Customer Lookup + SHAP":
     st.progress(prob)
     st.caption(f"**{risk_level} Risk** ({prob:.1%} probability)")
 
+    #export button formatting
+    st.markdown("""
+    <style>
+    div.stButton > button:first-child {
+        background-color: #0A3D91 !important;
+        color: white !important;
+        border-radius: 6px;
+        height: 3em;
+        width: 100%;
+        font-weight: 600;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
     # Export button
+    import pandas as pd
+    import io
+
     if st.button("Export this customer's prediction", use_container_width=True):
-        export_data = {
-            "customer_index": int(customer_idx),
-            "original_row": int(orig_idx),
-            "churn_probability": float(prob),
-            "actual_churn": actual_churn,
-            "top_shap_feature": top_feature,
-            "top_shap_value": float(top_shap)
-        }
-        st.download_button(
-            "Download JSON",
-            data=str(export_data),
-            file_name=f"customer_{customer_idx}_prediction.json",
-            mime="application/json"
-        )
+
+    export_data = {
+        "customer_index": int(customer_idx),
+        "original_row": int(orig_idx),
+        "churn_probability": float(prob),
+        "actual_churn": actual_churn,
+        "top_shap_feature": top_feature,
+        "top_shap_value": float(top_shap)
+    }
+
+    export_df = pd.DataFrame([export_data])
+
+    # CSV download
+    st.download_button(
+        "Download CSV",
+        data=export_df.to_csv(index=False).encode("utf-8"),
+        file_name=f"customer_{customer_idx}_prediction.csv",
+        mime="text/csv"
+    )
+
+    # Excel download
+    buffer = io.BytesIO()
+    export_df.to_excel(buffer, index=False, engine="xlsxwriter")
+    buffer.seek(0)
+
+    st.download_button(
+        "Download Excel",
+        data=buffer,
+        file_name=f"customer_{customer_idx}_prediction.xlsx",
+        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    )
 
 # ────────────────────────────────────────────────
 # Tab 2: What-If Simulator (expanded)
