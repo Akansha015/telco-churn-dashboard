@@ -440,9 +440,9 @@ elif page == "About":
                     "https://www.googleapis.com/auth/drive"
                 ]
                 # Path to your credentials JSON file (update if needed)
-                creds = ServiceAccountCredentials.from_json_keyfile_name(
-                    "credentials.json", scope
-                )
+               import json
+                creds_dict = json.loads(st.secrets["credentials_json"])
+                creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
                 client = gspread.authorize(creds)
 
                 # Open your sheet (update name if different)
