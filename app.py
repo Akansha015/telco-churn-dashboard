@@ -243,7 +243,7 @@ if page == "Customer Lookup + SHAP":
 
     if st.button("Export this customer's prediction", use_container_width=True):
 
-    export_data = {
+        export_data = {
         "customer_index": int(customer_idx),
         "original_row": int(orig_idx),
         "churn_probability": float(prob),
@@ -251,7 +251,7 @@ if page == "Customer Lookup + SHAP":
         "top_shap_feature": top_feature,
         "top_shap_value": float(top_shap)}
 
-    export_df = pd.DataFrame([export_data])
+        export_df = pd.DataFrame([export_data])
 
     # CSV download
     st.download_button(
