@@ -262,7 +262,7 @@ if page == "Customer Lookup + SHAP":
 
     # Excel download
         buffer = io.BytesIO()
-        export_df.to_excel(buffer, index=False, engine="xlsxwriter")
+        export_df.to_excel(buffer, index=False)
         buffer.seek(0)
 
         st.download_button(
