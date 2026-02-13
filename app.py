@@ -441,7 +441,7 @@ elif page == "About":
                 ]
                 # Path to your credentials JSON file (update if needed)
                 import json
-                creds_dict = json.loads(st.secrets["credentials_json"])
+                creds = st.secrets["credentials_json"]
                 creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
                 client = gspread.authorize(creds)
 
