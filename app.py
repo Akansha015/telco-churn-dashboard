@@ -249,8 +249,7 @@ if page == "Customer Lookup + SHAP":
         "churn_probability": float(prob),
         "actual_churn": actual_churn,
         "top_shap_feature": top_feature,
-        "top_shap_value": float(top_shap)
-    }
+        "top_shap_value": float(top_shap)}
 
     export_df = pd.DataFrame([export_data])
 
