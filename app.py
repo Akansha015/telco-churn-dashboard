@@ -442,7 +442,7 @@ elif page == "About":
                 # Path to your credentials JSON file (update if needed)
                 import json
                 creds = st.secrets["credentials_json"]
-                creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
+                creds = ServiceAccountCredentials.from_json_keyfile_dict(creds, scope)
                 client = gspread.authorize(creds)
 
                 # Open your sheet (update name if different)
